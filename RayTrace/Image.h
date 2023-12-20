@@ -18,6 +18,10 @@ public:
 	//Display Image
 	void Display();
 
+	//Getters
+	int GetXSize();
+	int GetYSize();
+
 private:
 	//Double -> Uint32 for SDL (doubles used for lighting purposes)
 	Uint32 ConvertColor(const double red, const double green, const double blue);

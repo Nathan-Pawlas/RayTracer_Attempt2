@@ -24,12 +24,18 @@
     <ClCompile Include="RayTrace\Image.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="RayTrace\Scene.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CApp.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="RayTrace\Image.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="RayTrace\Scene.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

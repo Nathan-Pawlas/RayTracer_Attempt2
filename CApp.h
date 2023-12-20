@@ -3,6 +3,7 @@
 
 #include <SDL.h>
 #include "RayTrace/Image.h"
+#include "RayTrace/Scene.h"
 
 class CAPP
 {
@@ -18,6 +19,7 @@ public:
 
 private:
 	Image m_Image;
+	Scene m_Scene;
 
 	bool isRunning;
 	SDL_Window* pWindow;

@@ -24,16 +24,6 @@ bool CAPP::OnInit()
 
 	m_Image.Init(1280, 720, pRenderer);
 
-	for (int x = 0; x < 1280; x++)
-	{
-		for (int y = 0; y < 720; y++)
-		{
-			double red = (static_cast<double>(x) / 1280.0) * 255;
-			double green = (static_cast<double>(y) / 1280.0) * 255;
-			m_Image.SetPixel(x, y, red, green, 0.0);
-		}
-	}
-
 	return true;
 
 }
@@ -70,6 +60,9 @@ void CAPP::OnRender()
 	//Set BackGround Color
 	SDL_SetRenderDrawColor(pRenderer, 255, 255, 255, 255);
 	SDL_RenderClear(pRenderer);
+
+	//Render Scene
+	m_Scene.Render(m_Image);
 
 	//Display Image
 	m_Image.Display();

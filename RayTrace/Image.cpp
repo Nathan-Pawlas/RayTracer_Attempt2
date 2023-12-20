@@ -71,6 +71,16 @@ void Image::Display()
 	SDL_RenderCopy(m_pRenderer, m_pTexture, &srcRect, &bounds);
 }
 
+int Image::GetXSize()
+{
+	return m_xSize;
+}
+
+int Image::GetYSize()
+{
+	return m_ySize;
+}
+
 
 Uint32 Image::ConvertColor(const double red, const double green, const double blue)
 {

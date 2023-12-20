@@ -136,10 +136,12 @@
     <ClCompile Include="CApp.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="RayTrace\Image.cpp" />
+    <ClCompile Include="RayTrace\Scene.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CApp.h" />
     <ClInclude Include="RayTrace\Image.h" />
+    <ClInclude Include="RayTrace\Scene.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
