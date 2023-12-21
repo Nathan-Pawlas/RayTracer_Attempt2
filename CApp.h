@@ -4,6 +4,7 @@
 #include <SDL.h>
 #include "RayTrace/Image.h"
 #include "RayTrace/Scene.h"
+#include "RayTrace/Camera.h"
 
 class CAPP
 {
@@ -16,6 +17,9 @@ public:
 	void OnLoop();
 	void OnRender();
 	void OnExit();
+
+private:
+	void PrintVec(const Vec<double>& vec);
 
 private:
 	Image m_Image;

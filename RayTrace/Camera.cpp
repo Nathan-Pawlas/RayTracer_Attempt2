@@ -113,7 +113,7 @@ void Camera::UpdateCameraGeometry()
 
 	//Modify U and V based on Aspect Ratio
 	m_ProjectionScreenU = m_ProjectionScreenU * m_CamHorzSize;
-	m_ProjectionScreenV = m_ProjectionScreenU * (m_CamHorzSize / m_CamAspect);
+	m_ProjectionScreenV = m_ProjectionScreenV * (m_CamHorzSize / m_CamAspect);
 }
 
 
