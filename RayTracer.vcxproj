@@ -135,13 +135,17 @@
   <ItemGroup>
     <ClCompile Include="CApp.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="RayTrace\Camera.cpp" />
     <ClCompile Include="RayTrace\Image.cpp" />
+    <ClCompile Include="RayTrace\Ray.cpp" />
     <ClCompile Include="RayTrace\Scene.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CApp.h" />
+    <ClInclude Include="RayTrace\Camera.h" />
     <ClInclude Include="RayTrace\Image.h" />
     <ClInclude Include="RayTrace\Math\Vec.h" />
+    <ClInclude Include="RayTrace\Ray.h" />
     <ClInclude Include="RayTrace\Scene.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

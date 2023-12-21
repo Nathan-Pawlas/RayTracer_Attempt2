@@ -70,7 +70,7 @@ Vec<T>::Vec(int numDims)
 template <class T>
 Vec<T>::Vec(std::vector<T> inputData)
 {
-	m_nDims = inputData.size();
+	m_nDims = (int)inputData.size();
 	m_vectorData = inputData;
 }
 
