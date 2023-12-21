@@ -16,7 +16,7 @@ bool Scene::Render(Image& outputImage)
 		{
 			double r = (static_cast<double>(x) / static_cast<double>(xSize)) * 255.0;
 			double g = (static_cast<double>(y) / static_cast<double>(ySize)) * 255.0;
-			outputImage.SetPixel(x, y, r, g, 0.0);
+			outputImage.SetPixel(x, y, r, g, g+r);
 		}
 	}
 

@@ -141,6 +141,7 @@
   <ItemGroup>
     <ClInclude Include="CApp.h" />
     <ClInclude Include="RayTrace\Image.h" />
+    <ClInclude Include="RayTrace\Math\Vec.h" />
     <ClInclude Include="RayTrace\Scene.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
