@@ -9,6 +9,14 @@ Scene::Scene()
 	m_cam.SetHorizontalSize(0.25);
 	m_cam.SetAspect(16.0 / 9.0);
 	m_cam.UpdateCameraGeometry();
+
+	//Construct a Test Sphere
+	m_objectList.push_back(std::make_shared<ObjSphere>(ObjSphere()));
+
+	//Construct a Test Light
+	m_lightList.push_back(std::make_shared<PointLight>(PointLight()));
+	m_lightList.at(0)->m_location = Vec<double>{ std::vector<double>{5.0, -10.0, -5.0} };
+	m_lightList.at(0)->m_color = Vec<double>{ std::vector<double>{255, 255.0, 255.0} };
 }
 
 bool Scene::Render(Image& outputImage)
@@ -38,20 +46,36 @@ bool Scene::Render(Image& outputImage)
 			m_cam.GenerateRay(normX, normY, camRay);
 
 			//Check For Intersections
-			bool validInt = m_testSphere.Intersects(camRay, intPoint, localNormal, localColor);
+			for (auto currObj : m_objectList) {
+				bool validInt = currObj.get()->Intersects(camRay, intPoint, localNormal, localColor);
+				
+				if (validInt) {
+					//Compute Light Intensity
+					double intensity;
+					Vec<double> color {3};
+					bool validIllum = false;
+					for (auto currLight : m_lightList)
+					{
+						validIllum = currLight->ComputeIllumination(intPoint, localNormal, m_objectList, currObj, color, intensity);
+					}
 
-			if (validInt) {
-				double dist = (intPoint - camRay.m_point1).norm();
-				if (dist > maxDist) {
-					maxDist = dist;
+					//Compute Distance From Cam
+					double dist = (intPoint - camRay.m_point1).norm();
+					if (dist > maxDist) {
+						maxDist = dist;
+					}
+					if (dist < minDist) {
+						minDist = dist;
+					}
+					//outputImage.SetPixel(x, y, 255.0 - ((dist - 9.0) / 0.94605) * 255.0, 0.0, 0.0);
+					if (validIllum)
+						outputImage.SetPixel(x, y, 255.0 * intensity , 0.0, 0.0);
+					else
+						outputImage.SetPixel(x, y, 0.0, 0.0, 0.0);
 				}
-				if (dist < minDist) {
-					minDist = dist;
+				else {
+					outputImage.SetPixel(x, y, 0.0, 0.0, 0.0);
 				}
-				outputImage.SetPixel(x, y, 255.0 - ((dist - 9.0) / 0.94605) * 255.0, 0.0, 0.0);
-			}
-			else {
-				outputImage.SetPixel(x, y, 0.0, 0.0, 0.0);
 			}
 		}
 	}

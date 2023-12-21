@@ -41,6 +41,10 @@ bool ObjSphere::Intersects(const Ray& castRay, Vec<double>& intPoint, Vec<double
 			{
 				intPoint = castRay.m_point1 + (vhat * t2);
 			}
+
+			//Get Local Normal (For Unit Sphere @ origin)
+			localNormal = intPoint;
+			localNormal.Normalize();
 		}
 		return true;
 	}

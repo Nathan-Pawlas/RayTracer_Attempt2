@@ -1,11 +1,13 @@
 #ifndef SCENE_H
 #define SCENE_H
 
+#include <memory>
 #include <vector>
 #include <SDL.h>
 #include "Image.h"
 #include "Camera.h"
 #include "Objects/ObjSphere.h"
+#include "PointLight.h"
 
 class Scene
 {
@@ -19,8 +21,11 @@ private:
 private:
 	Camera m_cam;
 
-	//Unit Sphere on Origin
-	ObjSphere m_testSphere;
+	//List of Objs in Scene
+	std::vector<std::shared_ptr<ObjectBase>> m_objectList;
+
+	//List of Lights in Scene
+	std::vector<std::shared_ptr<LightBase>> m_lightList;
 };
 
 
