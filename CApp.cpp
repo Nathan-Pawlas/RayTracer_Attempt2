@@ -33,7 +33,7 @@ bool CAPP::OnInit()
 
 	m_Image.Display();
 
-	SDL_RenderPresent(pRenderer);
+	SDL_RenderPresent(pRenderer); 
 
 	return true;
 

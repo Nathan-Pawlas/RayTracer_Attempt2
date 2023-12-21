@@ -41,13 +41,23 @@ bool Scene::Render(Image& outputImage)
 			bool validInt = m_testSphere.Intersects(camRay, intPoint, localNormal, localColor);
 
 			if (validInt) {
-				outputImage.SetPixel(x, y, 255.0, 0.0, 0.0);
+				double dist = (intPoint - camRay.m_point1).norm();
+				if (dist > maxDist) {
+					maxDist = dist;
+				}
+				if (dist < minDist) {
+					minDist = dist;
+				}
+				outputImage.SetPixel(x, y, 255.0 - ((dist - 9.0) / 0.94605) * 255.0, 0.0, 0.0);
 			}
 			else {
 				outputImage.SetPixel(x, y, 0.0, 0.0, 0.0);
 			}
 		}
 	}
+
+	std::cout << "Min Dist: " << minDist << std::endl;
+	std::cout << "Max Dist: " << maxDist << std::endl;
 
 	return true;
 }
