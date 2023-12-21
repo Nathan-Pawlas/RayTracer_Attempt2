@@ -5,6 +5,7 @@
 class Ray
 {
 public:
+	Ray();
 	Ray(const Vec<double>& point1, const Vec<double>& point2);
 
 	Vec<double> GetPoint1() const;

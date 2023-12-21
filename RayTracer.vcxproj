@@ -137,6 +137,8 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="RayTrace\Camera.cpp" />
     <ClCompile Include="RayTrace\Image.cpp" />
+    <ClCompile Include="RayTrace\ObjectBase.cpp" />
+    <ClCompile Include="RayTrace\Objects\ObjSphere.cpp" />
     <ClCompile Include="RayTrace\Ray.cpp" />
     <ClCompile Include="RayTrace\Scene.cpp" />
   </ItemGroup>
@@ -145,6 +147,8 @@
     <ClInclude Include="RayTrace\Camera.h" />
     <ClInclude Include="RayTrace\Image.h" />
     <ClInclude Include="RayTrace\Math\Vec.h" />
+    <ClInclude Include="RayTrace\ObjectBase.h" />
+    <ClInclude Include="RayTrace\Objects\ObjSphere.h" />
     <ClInclude Include="RayTrace\Ray.h" />
     <ClInclude Include="RayTrace\Scene.h" />
   </ItemGroup>

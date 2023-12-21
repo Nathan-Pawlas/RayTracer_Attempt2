@@ -24,27 +24,16 @@ bool CAPP::OnInit()
 	pRenderer = SDL_CreateRenderer(pWindow, -1, 0);
 
 	m_Image.Init(1280, 720, pRenderer);
-	
-	//Cam Class Test
-	Camera testCam;
-	testCam.SetPosition(Vec<double>{std::vector<double>{0.0, 0.0, 0.0}});
-	testCam.SetLookAt(Vec<double>{std::vector<double>{0.0, 2.0, 0.0}});
-	testCam.SetUp(Vec<double>{std::vector<double>{0.0, 0.0, 1.0}});
-	testCam.SetLength(1.0);
-	testCam.SetHorizontalSize(1.0);
-	testCam.SetAspect(1.0);
-	testCam.UpdateCameraGeometry();
 
-	auto screenCenter = testCam.GetScreenCenter();
-	auto screenU = testCam.GetU();
-	auto screenV = testCam.GetV();
+	//Set Background Color
+	SDL_SetRenderDrawColor(pRenderer, 255, 255, 255, 255);
+	SDL_RenderClear(pRenderer);
 
-	std::cout << "Cam Screen Center:" << std::endl;
-	PrintVec(screenCenter);
-	std::cout << "Cam U Vec:" << std::endl;
-	PrintVec(screenU);
-	std::cout << "Cam V Ver:" << std::endl;
-	PrintVec(screenV);
+	m_Scene.Render(m_Image);
+
+	m_Image.Display();
+
+	SDL_RenderPresent(pRenderer);
 
 	return true;
 
@@ -81,18 +70,18 @@ void CAPP::OnLoop()
 
 void CAPP::OnRender()
 {
-	//Set BackGround Color
-	SDL_SetRenderDrawColor(pRenderer, 255, 255, 255, 255);
-	SDL_RenderClear(pRenderer);
+	////Set BackGround Color
+	//SDL_SetRenderDrawColor(pRenderer, 255, 255, 255, 255);
+	//SDL_RenderClear(pRenderer);
 
-	//Render Scene
-	m_Scene.Render(m_Image);
+	////Render Scene
+	//m_Scene.Render(m_Image);
 
-	//Display Image
-	m_Image.Display();
+	////Display Image
+	//m_Image.Display();
 
-	//Display Result
-	SDL_RenderPresent(pRenderer);
+	////Display Result
+	//SDL_RenderPresent(pRenderer);
 }
 
 //Deallocate Everything

@@ -87,13 +87,16 @@ double Camera::GetAspect()
 	return m_CamAspect;
 }
 
-Ray Camera::GenerateRay(float proScreenX, float proScreenY)
+bool Camera::GenerateRay(float proScreenX, float proScreenY, Ray &cameraRay)
 {
 	//Screen Space -> World Space
 	Vec<double> worldCoordinate = (m_ProjectionScreenCenter + (m_ProjectionScreenU * proScreenX)) + (m_ProjectionScreenV * proScreenY);
 
 	//Generate Ray from CamPos and World Coordinate
-	return Ray(m_CamPos, worldCoordinate);
+	cameraRay.m_point1 = m_CamPos;
+	cameraRay.m_point2 = worldCoordinate;
+	cameraRay.m_lab = worldCoordinate - m_CamPos;
+	return true;
 }
 
 void Camera::UpdateCameraGeometry()

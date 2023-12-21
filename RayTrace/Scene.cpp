@@ -2,6 +2,13 @@
 
 Scene::Scene()
 {
+	//Configure Cam
+	m_cam.SetPosition(Vec<double>{std::vector<double> { 0.0, -10.0, 0.0}});
+	m_cam.SetLookAt(Vec<double>{std::vector<double>{0.0, 0.0, 0.0}});
+	m_cam.SetUp(Vec<double>{std::vector<double>{0.0, 0.0, 1.0}});
+	m_cam.SetHorizontalSize(0.25);
+	m_cam.SetAspect(16.0 / 9.0);
+	m_cam.UpdateCameraGeometry();
 }
 
 bool Scene::Render(Image& outputImage)
@@ -10,13 +17,35 @@ bool Scene::Render(Image& outputImage)
 	int xSize = outputImage.GetXSize();
 	int ySize = outputImage.GetYSize();
 
+	Ray camRay;
+	Vec<double> intPoint {3};
+	Vec<double> localNormal {3};
+	Vec<double> localColor {3};
+	double xFact = 1.0 / (static_cast<double>(xSize) / 2.0);
+	double yFact = 1.0 / (static_cast<double>(ySize) / 2.0);
+	double minDist = 1e6;
+	double maxDist = 0.0;
+	//Iterate Through Pixels
 	for (int x = 0; x < xSize; x++)
 	{
 		for (int y = 0; y < ySize; y++)
 		{
-			double r = (static_cast<double>(x) / static_cast<double>(xSize)) * 255.0;
-			double g = (static_cast<double>(y) / static_cast<double>(ySize)) * 255.0;
-			outputImage.SetPixel(x, y, r, g, g+r);
+			//Normalize X and Y coords
+			double normX = (static_cast<double>(x) * xFact) - 1.0;
+			double normY = (static_cast<double>(y) * yFact) - 1.0;
+
+			//Generate Ray For Pixel
+			m_cam.GenerateRay(normX, normY, camRay);
+
+			//Check For Intersections
+			bool validInt = m_testSphere.Intersects(camRay, intPoint, localNormal, localColor);
+
+			if (validInt) {
+				outputImage.SetPixel(x, y, 255.0, 0.0, 0.0);
+			}
+			else {
+				outputImage.SetPixel(x, y, 0.0, 0.0, 0.0);
+			}
 		}
 	}
 

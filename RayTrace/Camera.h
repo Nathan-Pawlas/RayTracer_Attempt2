@@ -25,7 +25,7 @@ public:
 	double		GetHorizontalSize();
 	double		GetAspect();
 
-	Ray GenerateRay(float proScreenX, float proScreenY);
+	bool GenerateRay(float proScreenX, float proScreenY, Ray &cameraRay);
 
 	void UpdateCameraGeometry();
 
