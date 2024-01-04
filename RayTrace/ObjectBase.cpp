@@ -16,6 +16,11 @@ bool ObjectBase::Intersects(const Ray& castRay, Vec<double>& intPoint, Vec<doubl
 	return false; //This is a virtual function, meant to be overriden
 }
 
+void ObjectBase::SetTransformMatrix(const GTform& transformMatrix)
+{
+	m_transformMat = transformMatrix;
+}
+
 bool ObjectBase::FloatEqual(const double f1, const double f2)
 {
 	return fabs(f1 - f2) < EPSILON;
