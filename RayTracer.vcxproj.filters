@@ -42,7 +42,10 @@
     <ClCompile Include="RayTrace\LightBase.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="RayTrace\PointLight.cpp">
+    <ClCompile Include="RayTrace\Objects\PointLight.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="RayTrace\gtfm.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -74,7 +77,19 @@
     <ClInclude Include="RayTrace\LightBase.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="RayTrace\PointLight.h">
+    <ClInclude Include="RayTrace\Objects\PointLight.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="RayTrace\Math\Mat4.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="RayTrace\Math\Mat3.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="RayTrace\gtfm.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="RayTrace\Math\Mat2.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -1,7 +1,7 @@
 #ifndef POINTLIGHT_H
 #define POINTLIGHT_H
 
-#include "LightBase.h"
+#include "../LightBase.h"
 
 class PointLight : public LightBase
 {

@@ -7,7 +7,7 @@
 #include "Image.h"
 #include "Camera.h"
 #include "Objects/ObjSphere.h"
-#include "PointLight.h"
+#include "Objects/PointLight.h"
 
 class Scene
 {

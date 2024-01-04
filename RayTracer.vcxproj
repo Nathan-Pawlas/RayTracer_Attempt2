@@ -119,6 +119,9 @@
       <AdditionalLibraryDirectories>$(ProjectDir)SDL2\lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>SDL2.lib;SDL2main.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <Manifest>
+      <EnableDpiAwareness>true</EnableDpiAwareness>
+    </Manifest>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -142,11 +145,12 @@
     <ClCompile Include="CApp.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="RayTrace\Camera.cpp" />
+    <ClCompile Include="RayTrace\gtfm.cpp" />
     <ClCompile Include="RayTrace\Image.cpp" />
     <ClCompile Include="RayTrace\LightBase.cpp" />
     <ClCompile Include="RayTrace\ObjectBase.cpp" />
     <ClCompile Include="RayTrace\Objects\ObjSphere.cpp" />
-    <ClCompile Include="RayTrace\PointLight.cpp" />
+    <ClCompile Include="RayTrace\Objects\PointLight.cpp" />
     <ClCompile Include="RayTrace\Ray.cpp" />
     <ClCompile Include="RayTrace\Scene.cpp" />
   </ItemGroup>
@@ -155,10 +159,14 @@
     <ClInclude Include="RayTrace\Camera.h" />
     <ClInclude Include="RayTrace\Image.h" />
     <ClInclude Include="RayTrace\LightBase.h" />
+    <ClInclude Include="RayTrace\Math\Mat2.h" />
+    <ClInclude Include="RayTrace\Math\Mat3.h" />
+    <ClInclude Include="RayTrace\Math\Mat4.h" />
     <ClInclude Include="RayTrace\Math\Vec.h" />
     <ClInclude Include="RayTrace\ObjectBase.h" />
+    <ClInclude Include="RayTrace\gtfm.h" />
     <ClInclude Include="RayTrace\Objects\ObjSphere.h" />
-    <ClInclude Include="RayTrace\PointLight.h" />
+    <ClInclude Include="RayTrace\Objects\PointLight.h" />
     <ClInclude Include="RayTrace\Ray.h" />
     <ClInclude Include="RayTrace\Scene.h" />
   </ItemGroup>

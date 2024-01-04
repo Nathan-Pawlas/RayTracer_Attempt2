@@ -15,7 +15,7 @@ Scene::Scene()
 
 	//Construct a Test Light
 	m_lightList.push_back(std::make_shared<PointLight>(PointLight()));
-	m_lightList.at(0)->m_location = Vec<double>{ std::vector<double>{5.0, -10.0, -5.0} };
+	m_lightList.at(0)->m_location = Vec<double>{ std::vector<double>{5.0, -10.0, 5.0} };
 	m_lightList.at(0)->m_color = Vec<double>{ std::vector<double>{255, 255.0, 255.0} };
 }
 
@@ -33,6 +33,7 @@ bool Scene::Render(Image& outputImage)
 	double yFact = 1.0 / (static_cast<double>(ySize) / 2.0);
 	double minDist = 1e6;
 	double maxDist = 0.0;
+
 	//Iterate Through Pixels
 	for (int x = 0; x < xSize; x++)
 	{
@@ -67,7 +68,7 @@ bool Scene::Render(Image& outputImage)
 					if (dist < minDist) {
 						minDist = dist;
 					}
-					//outputImage.SetPixel(x, y, 255.0 - ((dist - 9.0) / 0.94605) * 255.0, 0.0, 0.0);
+
 					if (validIllum)
 						outputImage.SetPixel(x, y, 255.0 * intensity , 0.0, 0.0);
 					else
