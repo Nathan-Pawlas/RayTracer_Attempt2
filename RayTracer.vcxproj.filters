@@ -48,6 +48,9 @@
     <ClCompile Include="RayTrace\gtfm.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="RayTrace\Objects\ObjPlane.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CApp.h">
@@ -90,6 +93,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="RayTrace\Math\Mat2.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="RayTrace\Objects\ObjPlane.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

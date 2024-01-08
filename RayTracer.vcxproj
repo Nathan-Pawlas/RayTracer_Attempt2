@@ -152,6 +152,7 @@
     <ClCompile Include="RayTrace\Image.cpp" />
     <ClCompile Include="RayTrace\LightBase.cpp" />
     <ClCompile Include="RayTrace\ObjectBase.cpp" />
+    <ClCompile Include="RayTrace\Objects\ObjPlane.cpp" />
     <ClCompile Include="RayTrace\Objects\ObjSphere.cpp" />
     <ClCompile Include="RayTrace\Objects\PointLight.cpp" />
     <ClCompile Include="RayTrace\Ray.cpp" />
@@ -168,6 +169,7 @@
     <ClInclude Include="RayTrace\Math\Vec.h" />
     <ClInclude Include="RayTrace\ObjectBase.h" />
     <ClInclude Include="RayTrace\gtfm.h" />
+    <ClInclude Include="RayTrace\Objects\ObjPlane.h" />
     <ClInclude Include="RayTrace\Objects\ObjSphere.h" />
     <ClInclude Include="RayTrace\Objects\PointLight.h" />
     <ClInclude Include="RayTrace\Ray.h" />

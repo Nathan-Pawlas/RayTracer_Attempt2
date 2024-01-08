@@ -15,6 +15,7 @@ Scene::Scene()
 	m_objectList.push_back(std::make_shared<ObjSphere>(ObjSphere()));
 	m_objectList.push_back(std::make_shared<ObjSphere>(ObjSphere()));
 
+
 	//Modify Spheres
 	GTform mat1, mat2, mat3;
 	mat1.SetTransform(Vec<double>{std::vector<double>{-1.5, 0.0, 0.0}},

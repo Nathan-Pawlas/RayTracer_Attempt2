@@ -8,6 +8,7 @@
 #include "Camera.h"
 #include "Objects/ObjSphere.h"
 #include "Objects/PointLight.h"
+#include "Objects/ObjPlane.h"
 
 class Scene
 {
