@@ -18,23 +18,50 @@ bool PointLight::ComputeIllumination(const Vec<double>& intPoint, const Vec<doub
 
 	Vec<double> startPoint = intPoint;
 
-	//Get Angle between Normal and LightDir
-	//Assumption that LocalNormal is a Unit Vector
-	double angle = acos(Vec<double>::dot(localNormal, lightDir));
+	//Cast Ray from IntPoint to Light
+	Ray lightRay(startPoint, startPoint + lightDir);
 
-	//If normal points away from light, not lit
-	if (angle > 1.5708)
+	Vec<double> poi{ 3 };
+	Vec<double> poiNormal{ 3 };
+	Vec<double> poiColor{ 3 };
+	bool validInt = false;
+	for (auto sceneObj : objectList)
+	{
+		if (sceneObj != currObj)
+		{
+			validInt = sceneObj->Intersects(lightRay, poi, poiNormal, poiColor);
+		}
+		//If there's an intersection, we can break because we are in a shadow
+		if (validInt)
+			break;
+	}
+
+	if (!validInt) //Not in Shadow
+	{
+		//Find angle between local norm and light ray
+		//Assume local Norm is a unit vector
+		double angle = acos(Vec<double>::dot(localNormal, lightDir));
+
+		if (angle > 1.5708)
+		{
+			color = m_color;
+			intensity = 0.0;
+			return false;
+		}
+		else
+		{
+			color = m_color;
+			intensity = m_intensity * (1.0 - (angle / 1.5708));
+			return true;
+		}
+	}
+	else //In shadow
 	{
 		color = m_color;
 		intensity = 0.0;
 		return false;
 	}
-	else
-	{
-		color = m_color;
-		intensity = m_intensity * (1.0 - (angle / 1.5708));
-		return true;
-	}
+	return false;
 }
 
 void PointLight::SetColor(const Vec<double> color)

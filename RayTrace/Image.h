@@ -26,6 +26,7 @@ private:
 	//Double -> Uint32 for SDL (doubles used for lighting purposes)
 	Uint32 ConvertColor(const double red, const double green, const double blue);
 	void InitTexture();
+	void ComputeMaxValues();
 
 private:
 	//2D Arrays for Image Data
@@ -35,6 +36,8 @@ private:
 
 	//Image Size
 	int m_xSize, m_ySize;
+
+	double m_maxRed, m_maxGreen, m_maxBlue, m_overallMax;
 
 	SDL_Renderer* m_pRenderer;
 	SDL_Texture* m_pTexture;
