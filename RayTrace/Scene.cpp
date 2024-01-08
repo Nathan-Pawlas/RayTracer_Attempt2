@@ -1,4 +1,5 @@
 #include "Scene.h"
+#include <chrono>
 
 Scene::Scene()
 {
@@ -11,13 +12,13 @@ Scene::Scene()
 	m_cam.UpdateCameraGeometry();
 
 	//Construct a Test Sphere
-	/*m_objectList.push_back(std::make_shared<ObjSphere>(ObjSphere()));
 	m_objectList.push_back(std::make_shared<ObjSphere>(ObjSphere()));
-	m_objectList.push_back(std::make_shared<ObjSphere>(ObjSphere()));*/
+	m_objectList.push_back(std::make_shared<ObjSphere>(ObjSphere()));
+	m_objectList.push_back(std::make_shared<ObjSphere>(ObjSphere()));
 
 	//Construct Test Plane
 	m_objectList.push_back(std::make_shared<ObjPlane>(ObjPlane()));
-	m_objectList.at(0)->m_baseColor = Vec<double>{ std::vector<double>{128.0, 128.0, 128.0} };
+	m_objectList.at(3)->m_baseColor = Vec<double>{ std::vector<double>{128.0, 128.0, 128.0} };
 
 	//Modify Spheres
 	GTform mat1, mat2, mat3;
@@ -31,13 +32,13 @@ Scene::Scene()
 		Vec<double>{std::vector<double>{0.0, 0.0, 0.0}},
 		Vec<double>{std::vector<double>{0.5, 0.75, 0.5}});
 
-	/*m_objectList.at(0)->SetTransformMatrix(mat1);
+	m_objectList.at(0)->SetTransformMatrix(mat1);
 	m_objectList.at(1)->SetTransformMatrix(mat2);
 	m_objectList.at(2)->SetTransformMatrix(mat3);
 
 	m_objectList.at(0)->m_baseColor = Vec<double>{ std::vector<double>{255.0, 155.0, 0.0} };
 	m_objectList.at(1)->m_baseColor = Vec<double>{ std::vector<double>{100.0, 150.0, 255.0} };
-	m_objectList.at(2)->m_baseColor = Vec<double>{ std::vector<double>{0.0, 155.0, 155.0} };*/
+	m_objectList.at(2)->m_baseColor = Vec<double>{ std::vector<double>{0.0, 155.0, 155.0} };
 
 	//Construct a Test Light
 	m_lightList.push_back(std::make_shared<PointLight>(PointLight()));
@@ -59,6 +60,8 @@ bool Scene::Render(Image& outputImage)
 	double yFact = 1.0 / (static_cast<double>(ySize) / 2.0);
 	double minDist = 1e6;
 	double maxDist = 0.0;
+
+	auto start = std::chrono::high_resolution_clock::now();
 
 	//Iterate Through Pixels
 	for (int x = 0; x < xSize; x++)
@@ -110,9 +113,12 @@ bool Scene::Render(Image& outputImage)
 			}
 		}
 	}
+	auto end = std::chrono::high_resolution_clock::now();
+	auto time = std::chrono::duration_cast<std::chrono::microseconds>(end - start);
 
 	std::cout << "Min Dist: " << minDist << std::endl;
 	std::cout << "Max Dist: " << maxDist << std::endl;
+	std::cout << "Render Time: " << time.count() << std::endl;
 
 	return true;
 }
