@@ -29,15 +29,15 @@ Scene::Scene()
 
 	//Modify Spheres
 	GTform mat1, mat2, mat3;
-	mat1.SetTransform(Vec<double>{std::vector<double>{-1.5, 0.0, 0.0}},
+	mat1.SetTransform(Vec<double>{std::vector<double>{-1.5, 0.0, 0.25}},
 		Vec<double>{std::vector<double>{0.0, 0.0, 0.0}},
-		Vec<double>{std::vector<double>{0.5, 0.5, 0.75}});
-	mat2.SetTransform(Vec<double>{std::vector<double>{0.0, 0.0, 0.0}},
+		Vec<double>{std::vector<double>{0.5, 0.5, 0.5}});
+	mat2.SetTransform(Vec<double>{std::vector<double>{0.0, 0.0, 0.25}},
 		Vec<double>{std::vector<double>{0.0, 0.0, 0.0}},
-		Vec<double>{std::vector<double>{0.75, 0.75, 0.75}});
-	mat3.SetTransform(Vec<double>{std::vector<double>{1.5, 0.0, 0.0}},
+		Vec<double>{std::vector<double>{0.5, 0.5, 0.5}});
+	mat3.SetTransform(Vec<double>{std::vector<double>{1.5, 0.0, 0.25}},
 		Vec<double>{std::vector<double>{0.0, 0.0, 0.0}},
-		Vec<double>{std::vector<double>{0.5, 0.75, 0.5}});
+		Vec<double>{std::vector<double>{0.5, 0.5, 0.5}});
 
 	m_objectList.at(0)->SetTransformMatrix(mat1);
 	m_objectList.at(1)->SetTransformMatrix(mat2);
