@@ -41,22 +41,24 @@ bool ObjPlane::Intersects(const Ray& castRay, Vec<double>& intPoint, Vec<double>
 	double v = bckRay.m_point1.GetElement(1) + (k.GetElement(1) * t);
 
 	//Check the vectors are in the UNIT plane (i.e 1x1 plane, to be scaled by gtform)
-	if (abs(u) > 1.0 && abs(v) > 1.0)
-		return false;
+	if (abs(u) <= 1.0 && abs(v) <= 1.0)
+	{
 
-	//Find intersection and transform back into world coords
-	Vec<double> poi = bckRay.m_point1 + t * k;
-	intPoint = m_transformMat.Apply(poi, FWDTFORM);
+		//Find intersection and transform back into world coords
+		Vec<double> poi = bckRay.m_point1 + t * k;
+		intPoint = m_transformMat.Apply(poi, FWDTFORM);
 
-	//Find local Normal
-	Vec<double> localOrigin{ std::vector<double> {0.0, 0.0, 0.0} };
-	Vec<double> normalVec{ std::vector<double> {0.0, 0.0, -1.0} };
-	Vec<double> globalOrigin = m_transformMat.Apply(localOrigin, FWDTFORM);
-	localNormal = m_transformMat.Apply(normalVec, FWDTFORM) - globalOrigin;
-	localNormal.Normalize();
+		//Find local Normal
+		Vec<double> localOrigin{ std::vector<double> {0.0, 0.0, 0.0} };
+		Vec<double> normalVec{ std::vector<double> {0.0, 0.0, -1.0} };
+		Vec<double> globalOrigin = m_transformMat.Apply(localOrigin, FWDTFORM);
+		localNormal = m_transformMat.Apply(normalVec, FWDTFORM) - globalOrigin;
+		localNormal.Normalize();
 
-	//Set Base Color
-	localColor = m_baseColor;
+		//Set Base Color
+		localColor = m_baseColor;
 
-	return true;
+		return true;
+	}
+	return false;
 }
