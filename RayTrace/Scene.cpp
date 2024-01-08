@@ -50,7 +50,15 @@ Scene::Scene()
 	//Construct a Test Light
 	m_lightList.push_back(std::make_shared<PointLight>(PointLight()));
 	m_lightList.at(0)->m_location = Vec<double>{ std::vector<double>{5.0, -10.0, -5.0} };
-	m_lightList.at(0)->m_color = Vec<double>{ std::vector<double>{1.0, 1.0, 1.0} };
+	m_lightList.at(0)->m_color = Vec<double>{ std::vector<double>{0.0, 0.0, 1.0} };
+
+	m_lightList.push_back(std::make_shared<PointLight>(PointLight()));
+	m_lightList.at(1)->m_location = Vec<double>{ std::vector<double>{0.0, -10.0, -5.0} };
+	m_lightList.at(1)->m_color = Vec<double>{ std::vector<double>{0.0, 1.0, 0.0} };
+
+	m_lightList.push_back(std::make_shared<PointLight>(PointLight()));
+	m_lightList.at(2)->m_location = Vec<double>{ std::vector<double>{-5.0, -10.0, -5.0} };
+	m_lightList.at(2)->m_color = Vec<double>{ std::vector<double>{1.0, 0.0, 0.0} };
 }
 
 bool Scene::Render(Image& outputImage)
