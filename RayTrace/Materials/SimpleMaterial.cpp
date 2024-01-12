@@ -83,7 +83,7 @@ Vec<double> SimpleMaterial::ComputeSpecular(const std::vector<std::shared_ptr<Ob
 		blue += curLight->m_color.GetElement(2) * intensity;
 
 	}
-
+	
 	spcColor.SetElement(0, red);
 	spcColor.SetElement(1, green);
 	spcColor.SetElement(2, blue);

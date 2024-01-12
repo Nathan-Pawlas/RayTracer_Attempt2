@@ -17,7 +17,7 @@ bool ObjSphere::Intersects(const Ray& castRay, Vec<double>& intPoint, Vec<double
 
 	//Formula for finding the distance to an intersection of a sphere (centered on origin)
 	//(bx^2+by^2+bz^2)t^2 + (2axbx + 2ayby + 2azbz)t + (ax^2 + ay^2 + az^2 - r^2) = 0
-	//a = ray origin (don't need to worry about it since we're working in local coords)
+	//a = ray origin (don't need to worry about it since we're working in local coords with Unit Vector so always 1)
 	//b = ray direction
 	//r = circle radius
 	//t = dist to hit (from a)

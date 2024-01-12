@@ -28,12 +28,9 @@ bool ObjectBase::FloatEqual(const double f1, const double f2)
 
 bool ObjectBase::AssignMaterial(const std::shared_ptr<MaterialBase>& objMaterial)
 {
-	if (objMaterial == NULL)
-		return false;
-
 	m_pMaterial = objMaterial;
 	m_hasMaterial = true;
-	return true;
+	return m_hasMaterial;
 }
 
 

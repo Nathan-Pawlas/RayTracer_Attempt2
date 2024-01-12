@@ -17,9 +17,8 @@ public:
 
 	bool Render(Image& outputImage);
 
-	bool CastRay(Ray& castRay, std::shared_ptr<ObjectBase>& closestObj, 
-		Vec<double>& closestIntPoint, Vec<double>& closestLocalNormal,
-		Vec<double>& closestLocalColor);
+	bool CastRay(Ray& castRay, std::shared_ptr<ObjectBase>& closestObj,
+		Vec<double>& closestIntPoint, Vec<double>& closestLocalNormal, Vec<double>& closestLocalColor);
 
 private:
 

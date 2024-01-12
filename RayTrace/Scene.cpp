@@ -5,10 +5,10 @@
 Scene::Scene()
 {
 	//Create Test Materials
-	auto testMat = std::make_shared<SimpleMaterial>( SimpleMaterial());
+	auto testMat = std::make_shared<SimpleMaterial>(SimpleMaterial());
 	testMat->m_baseColor = Vec<double>{ std::vector<double>{0.25, 0.5, 0.8} };
-	testMat->m_shininess = 0.5;
-	testMat->m_reflectivity = 10;
+	testMat->m_reflectivity = 0.5;
+	testMat->m_shininess = 10.0;
 
 	//Configure Cam
 	m_cam.SetPosition(Vec<double>{std::vector<double> { 0.0, -10.0, -1.0}});
@@ -18,7 +18,7 @@ Scene::Scene()
 	m_cam.SetAspect(16.0 / 9.0);
 	m_cam.UpdateCameraGeometry();
 
-	//Construct Test Spheres
+	//Construct a Test Sphere
 	m_objectList.push_back(std::make_shared<ObjSphere>(ObjSphere()));
 	m_objectList.push_back(std::make_shared<ObjSphere>(ObjSphere()));
 	m_objectList.push_back(std::make_shared<ObjSphere>(ObjSphere()));
@@ -29,46 +29,47 @@ Scene::Scene()
 
 	//Modify Plane
 	GTform planeMat;
-	planeMat.SetTransform( Vec<double> {std::vector<double>{0.0, 0.0, 0.75}},
-			Vec<double>{std::vector<double>{0.0, 0.0, 0.0}},
-			Vec<double>{std::vector<double>{4.0, 2.0, 1.0}} );
+	planeMat.SetTransform(Vec<double> {std::vector<double>{0.0, 0.0, 0.75}},
+		Vec<double>{std::vector<double>{0.0, 0.0, 0.0}},
+		Vec<double>{std::vector<double>{4.0, 2.0, 1.0}});
 	m_objectList.at(3)->SetTransformMatrix(planeMat);
 
-	//Modify Spheres
+	//Modify Spheres Geometries
 	GTform mat1, mat2, mat3;
-	mat1.SetTransform(Vec<double>{std::vector<double>{-1.5, 0.0, 0.25}},
+	mat1.SetTransform(Vec<double>{std::vector<double>{-1.5, 0.0, 0.0}},
 		Vec<double>{std::vector<double>{0.0, 0.0, 0.0}},
 		Vec<double>{std::vector<double>{0.5, 0.5, 0.5}});
-	mat2.SetTransform(Vec<double>{std::vector<double>{0.0, 0.0, 0.25}},
+	mat2.SetTransform(Vec<double>{std::vector<double>{0.0, 0.0, 0.0}},
 		Vec<double>{std::vector<double>{0.0, 0.0, 0.0}},
 		Vec<double>{std::vector<double>{0.5, 0.5, 0.5}});
-	mat3.SetTransform(Vec<double>{std::vector<double>{1.5, 0.0, 0.25}},
+	mat3.SetTransform(Vec<double>{std::vector<double>{1.5, 0.0, 0.0}},
 		Vec<double>{std::vector<double>{0.0, 0.0, 0.0}},
 		Vec<double>{std::vector<double>{0.5, 0.5, 0.5}});
 
 	m_objectList.at(0)->SetTransformMatrix(mat1);
 	m_objectList.at(1)->SetTransformMatrix(mat2);
 	m_objectList.at(2)->SetTransformMatrix(mat3);
-
+	
+	//Set Object Colors
 	m_objectList.at(0)->m_baseColor = Vec<double>{ std::vector<double>{0.25, 0.5, 0.8} };
 	m_objectList.at(1)->m_baseColor = Vec<double>{ std::vector<double>{1, 0.5, 0.0} };
 	m_objectList.at(2)->m_baseColor = Vec<double>{ std::vector<double>{1, 0.8, 0.0} };
 
-	//Set Sphere Materials
+	//Assign Materials
 	m_objectList.at(0)->AssignMaterial(testMat);
 
 	//Construct a Test Light
 	m_lightList.push_back(std::make_shared<PointLight>(PointLight()));
-	m_lightList.at(0)->m_location = Vec<double>{ std::vector<double>{5.0, -10.0, -5.0} };
+	m_lightList.at(0)->m_location = Vec<double>{ std::vector<double>{5.25, -10.0, -5.0} };
 	m_lightList.at(0)->m_color = Vec<double>{ std::vector<double>{0.0, 0.0, 1.0} };
 
 	m_lightList.push_back(std::make_shared<PointLight>(PointLight()));
 	m_lightList.at(1)->m_location = Vec<double>{ std::vector<double>{0.0, -10.0, -5.0} };
-	m_lightList.at(1)->m_color = Vec<double>{ std::vector<double>{1.0, 0.0, 0.0} };
+	m_lightList.at(1)->m_color = Vec<double>{ std::vector<double>{0.0, 1.0, 0.0} };
 
 	m_lightList.push_back(std::make_shared<PointLight>(PointLight()));
-	m_lightList.at(2)->m_location = Vec<double>{ std::vector<double>{-5.0, -10.0, -5.0} };
-	m_lightList.at(2)->m_color = Vec<double>{ std::vector<double>{0.0, 1.0, 0.0} };
+	m_lightList.at(2)->m_location = Vec<double>{ std::vector<double>{-5.25, -10.0, -5.0} };
+	m_lightList.at(2)->m_color = Vec<double>{ std::vector<double>{1.0, 0.0, 0.0} };
 }
 
 bool Scene::Render(Image& outputImage)
@@ -78,9 +79,9 @@ bool Scene::Render(Image& outputImage)
 	int ySize = outputImage.GetYSize();
 
 	Ray camRay;
-	Vec<double> intPoint {3};
-	Vec<double> localNormal {3};
-	Vec<double> localColor {3};
+	Vec<double> intPoint{ 3 };
+	Vec<double> localNormal{ 3 };
+	Vec<double> localColor{ 3 };
 	double xFact = 1.0 / (static_cast<double>(xSize) / 2.0);
 	double yFact = 1.0 / (static_cast<double>(ySize) / 2.0);
 
@@ -102,39 +103,41 @@ bool Scene::Render(Image& outputImage)
 			Vec<double> closestIntPoint{ 3 };
 			Vec<double> closestLocalNormal{ 3 };
 			Vec<double> closestLocalColor{ 3 };
-
+			
 			bool intersectionFound = CastRay(camRay, closestObj, closestIntPoint, closestLocalNormal, closestLocalColor);
-
+			
 			if (intersectionFound)
 			{
-				//Check for Material
+				//Check For Material
 				if (closestObj->m_hasMaterial)
 				{
-					Vec<double> color = closestObj->m_pMaterial->ComputeColor(m_objectList, m_lightList, closestObj, closestIntPoint, closestLocalNormal, camRay);
+					//Use Material to Compute Color
+					Vec<double> color = closestObj->m_pMaterial->ComputeColor(m_objectList, m_lightList, 
+																	closestObj, closestIntPoint, closestLocalNormal, camRay);
 					outputImage.SetPixel(x, y, color.GetElement(0), color.GetElement(1), color.GetElement(2));
 				}
-				//Basic Method For Computing Color
 				else
 				{
-					Vec<double> matColor = MaterialBase::ComputeDiffuseColor(m_objectList, m_lightList, closestObj, closestIntPoint, closestLocalNormal, closestObj->m_baseColor);
+					//Compute Basic Color (Diffuse)
+					Vec<double> matColor = MaterialBase::ComputeDiffuseColor(m_objectList, m_lightList, 
+						closestObj, closestIntPoint, closestLocalNormal, closestObj->m_baseColor);
 					outputImage.SetPixel(x, y, matColor.GetElement(0), matColor.GetElement(1), matColor.GetElement(2));
 				}
 			}
 		}
 	}
 	auto end = std::chrono::high_resolution_clock::now();
-	auto time = std::chrono::duration_cast<std::chrono::microseconds>(end - start);
-	std::cout << "Render Time: " << time.count() << "ms" << std::endl;
+	auto time = std::chrono::duration_cast<std::chrono::seconds>(end - start);
+	std::cout << "Render Time: " << time.count() << "s" << std::endl;
 
 	return true;
 }
 
 bool Scene::CastRay(Ray& castRay, std::shared_ptr<ObjectBase>& closestObj, Vec<double>& closestIntPoint, Vec<double>& closestLocalNormal, Vec<double>& closestLocalColor)
 {
-	Vec<double> intPoint{3};
-	Vec<double> localNormal{3};
-	Vec<double> localColor{3};
-
+	Vec<double> intPoint{ 3 };
+	Vec<double> localNormal{ 3 };
+	Vec<double> localColor{ 3 };
 	double minDist = 1e6;
 	bool intersectionFound = false;
 
