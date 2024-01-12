@@ -33,22 +33,28 @@
     <ClCompile Include="RayTrace\Camera.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="RayTrace\ObjectBase.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="RayTrace\Objects\ObjSphere.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="RayTrace\LightBase.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="RayTrace\Objects\PointLight.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="RayTrace\gtfm.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="RayTrace\Objects\ObjPlane.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="RayTrace\Lights\LightBase.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="RayTrace\Materials\MaterialBase.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="RayTrace\Objects\ObjectBase.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="RayTrace\Lights\PointLight.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="RayTrace\Materials\SimpleMaterial.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -71,16 +77,7 @@
     <ClInclude Include="RayTrace\Camera.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="RayTrace\ObjectBase.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="RayTrace\Objects\ObjSphere.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="RayTrace\LightBase.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="RayTrace\Objects\PointLight.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="RayTrace\Math\Mat4.h">
@@ -96,6 +93,21 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="RayTrace\Objects\ObjPlane.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="RayTrace\Lights\LightBase.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="RayTrace\Materials\MaterialBase.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="RayTrace\Objects\ObjectBase.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="RayTrace\Lights\PointLight.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="RayTrace\Materials\SimpleMaterial.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

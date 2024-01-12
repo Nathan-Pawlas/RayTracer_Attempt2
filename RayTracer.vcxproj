@@ -113,6 +113,7 @@
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <Optimization>Full</Optimization>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -133,6 +134,7 @@
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <Optimization>Full</Optimization>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -152,11 +154,13 @@
     <ClCompile Include="RayTrace\Camera.cpp" />
     <ClCompile Include="RayTrace\gtfm.cpp" />
     <ClCompile Include="RayTrace\Image.cpp" />
-    <ClCompile Include="RayTrace\LightBase.cpp" />
-    <ClCompile Include="RayTrace\ObjectBase.cpp" />
+    <ClCompile Include="RayTrace\Lights\LightBase.cpp" />
+    <ClCompile Include="RayTrace\Materials\MaterialBase.cpp" />
+    <ClCompile Include="RayTrace\Materials\SimpleMaterial.cpp" />
+    <ClCompile Include="RayTrace\Objects\ObjectBase.cpp" />
     <ClCompile Include="RayTrace\Objects\ObjPlane.cpp" />
     <ClCompile Include="RayTrace\Objects\ObjSphere.cpp" />
-    <ClCompile Include="RayTrace\Objects\PointLight.cpp" />
+    <ClCompile Include="RayTrace\Lights\PointLight.cpp" />
     <ClCompile Include="RayTrace\Ray.cpp" />
     <ClCompile Include="RayTrace\Scene.cpp" />
   </ItemGroup>
@@ -164,16 +168,18 @@
     <ClInclude Include="CApp.h" />
     <ClInclude Include="RayTrace\Camera.h" />
     <ClInclude Include="RayTrace\Image.h" />
-    <ClInclude Include="RayTrace\LightBase.h" />
+    <ClInclude Include="RayTrace\Lights\LightBase.h" />
+    <ClInclude Include="RayTrace\Materials\MaterialBase.h" />
+    <ClInclude Include="RayTrace\Materials\SimpleMaterial.h" />
     <ClInclude Include="RayTrace\Math\Mat2.h" />
     <ClInclude Include="RayTrace\Math\Mat3.h" />
     <ClInclude Include="RayTrace\Math\Mat4.h" />
     <ClInclude Include="RayTrace\Math\Vec.h" />
-    <ClInclude Include="RayTrace\ObjectBase.h" />
+    <ClInclude Include="RayTrace\Objects\ObjectBase.h" />
     <ClInclude Include="RayTrace\gtfm.h" />
     <ClInclude Include="RayTrace\Objects\ObjPlane.h" />
     <ClInclude Include="RayTrace\Objects\ObjSphere.h" />
-    <ClInclude Include="RayTrace\Objects\PointLight.h" />
+    <ClInclude Include="RayTrace\Lights\PointLight.h" />
     <ClInclude Include="RayTrace\Ray.h" />
     <ClInclude Include="RayTrace\Scene.h" />
   </ItemGroup>

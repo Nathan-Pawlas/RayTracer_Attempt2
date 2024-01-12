@@ -37,7 +37,7 @@ bool ObjSphere::Intersects(const Ray& castRay, Vec<double>& intPoint, Vec<double
 	{
 		//completing the Quadratic Formula:
 		//(-b +- sqrt(dircriminant)) / (2.0f * a)
-		double numSQRT = sqrtf(intTest);
+		double numSQRT = sqrtf((float)intTest);
 		double t1 = (-b + numSQRT) / 2.0;
 		double t2 = (-b - numSQRT) / 2.0;
 		

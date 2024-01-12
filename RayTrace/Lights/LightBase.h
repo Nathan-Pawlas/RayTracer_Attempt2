@@ -2,9 +2,9 @@
 #define LIGHTBASE_H
 
 #include <memory>
-#include "Math/Vec.h"
-#include "Ray.h"
-#include "ObjectBase.h"
+#include "../Math/Vec.h"
+#include "../Ray.h"
+#include "../Objects/ObjectBase.h"
 
 class LightBase
 {

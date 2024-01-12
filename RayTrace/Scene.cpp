@@ -1,8 +1,15 @@
 #include "Scene.h"
+#include "Materials/SimpleMaterial.h"
 #include <chrono>
 
 Scene::Scene()
 {
+	//Create Test Materials
+	auto testMat = std::make_shared<SimpleMaterial>( SimpleMaterial());
+	testMat->m_baseColor = Vec<double>{ std::vector<double>{0.25, 0.5, 0.8} };
+	testMat->m_shininess = 0.5;
+	testMat->m_reflectivity = 10;
+
 	//Configure Cam
 	m_cam.SetPosition(Vec<double>{std::vector<double> { 0.0, -10.0, -1.0}});
 	m_cam.SetLookAt(Vec<double>{std::vector<double>{0.0, 0.0, 0.0}});
@@ -11,7 +18,7 @@ Scene::Scene()
 	m_cam.SetAspect(16.0 / 9.0);
 	m_cam.UpdateCameraGeometry();
 
-	//Construct a Test Sphere
+	//Construct Test Spheres
 	m_objectList.push_back(std::make_shared<ObjSphere>(ObjSphere()));
 	m_objectList.push_back(std::make_shared<ObjSphere>(ObjSphere()));
 	m_objectList.push_back(std::make_shared<ObjSphere>(ObjSphere()));
@@ -47,6 +54,9 @@ Scene::Scene()
 	m_objectList.at(1)->m_baseColor = Vec<double>{ std::vector<double>{1, 0.5, 0.0} };
 	m_objectList.at(2)->m_baseColor = Vec<double>{ std::vector<double>{1, 0.8, 0.0} };
 
+	//Set Sphere Materials
+	m_objectList.at(0)->AssignMaterial(testMat);
+
 	//Construct a Test Light
 	m_lightList.push_back(std::make_shared<PointLight>(PointLight()));
 	m_lightList.at(0)->m_location = Vec<double>{ std::vector<double>{5.0, -10.0, -5.0} };
@@ -54,11 +64,11 @@ Scene::Scene()
 
 	m_lightList.push_back(std::make_shared<PointLight>(PointLight()));
 	m_lightList.at(1)->m_location = Vec<double>{ std::vector<double>{0.0, -10.0, -5.0} };
-	m_lightList.at(1)->m_color = Vec<double>{ std::vector<double>{0.0, 1.0, 0.0} };
+	m_lightList.at(1)->m_color = Vec<double>{ std::vector<double>{1.0, 0.0, 0.0} };
 
 	m_lightList.push_back(std::make_shared<PointLight>(PointLight()));
 	m_lightList.at(2)->m_location = Vec<double>{ std::vector<double>{-5.0, -10.0, -5.0} };
-	m_lightList.at(2)->m_color = Vec<double>{ std::vector<double>{1.0, 0.0, 0.0} };
+	m_lightList.at(2)->m_color = Vec<double>{ std::vector<double>{0.0, 1.0, 0.0} };
 }
 
 bool Scene::Render(Image& outputImage)
@@ -92,60 +102,22 @@ bool Scene::Render(Image& outputImage)
 			Vec<double> closestIntPoint{ 3 };
 			Vec<double> closestLocalNormal{ 3 };
 			Vec<double> closestLocalColor{ 3 };
-			double minDist = 1e6;
-			bool intersectionFound = false;
 
-			//Check For Intersections
-			for (auto currObj : m_objectList) 
-			{
-				bool validInt = currObj.get()->Intersects(camRay, intPoint, localNormal, localColor);
-				
-				if (validInt) 
-				{
-					intersectionFound = true;
+			bool intersectionFound = CastRay(camRay, closestObj, closestIntPoint, closestLocalNormal, closestLocalColor);
 
-					//Compute dist to POI
-					double dist = (intPoint - camRay.m_point1).norm();
-					//Set Values for closest Object (for Object Culling)
-					if (dist < minDist)
-					{
-						minDist = dist;
-						closestObj = currObj;
-						closestIntPoint = intPoint;
-						closestLocalNormal = localNormal;
-						closestLocalColor = localColor;
-					}
-				}
-			}
 			if (intersectionFound)
 			{
-				//Calculate Illumination
-				double intensity;
-				Vec<double> color{ 3 };
-				double red = 0.0;
-				double green = 0.0;
-				double blue = 0.0;
-				bool validIllum = false;
-				bool illumFound = false;
-				for (auto currLight : m_lightList)
+				//Check for Material
+				if (closestObj->m_hasMaterial)
 				{
-					validIllum = currLight->ComputeIllumination(closestIntPoint, closestLocalNormal, m_objectList, closestObj, color, intensity);
-
-					if (validIllum)
-					{
-						illumFound = true;
-						red += color.GetElement(0) * intensity;
-						green += color.GetElement(1) * intensity;
-						blue += color.GetElement(2) * intensity;
-					}
+					Vec<double> color = closestObj->m_pMaterial->ComputeColor(m_objectList, m_lightList, closestObj, closestIntPoint, closestLocalNormal, camRay);
+					outputImage.SetPixel(x, y, color.GetElement(0), color.GetElement(1), color.GetElement(2));
 				}
-
-				if (illumFound)
+				//Basic Method For Computing Color
+				else
 				{
-					red *= closestLocalColor.GetElement(0);
-					green *= closestLocalColor.GetElement(1);
-					blue *= closestLocalColor.GetElement(2);
-					outputImage.SetPixel(x, y, red, green, blue);
+					Vec<double> matColor = MaterialBase::ComputeDiffuseColor(m_objectList, m_lightList, closestObj, closestIntPoint, closestLocalNormal, closestObj->m_baseColor);
+					outputImage.SetPixel(x, y, matColor.GetElement(0), matColor.GetElement(1), matColor.GetElement(2));
 				}
 			}
 		}
@@ -155,4 +127,38 @@ bool Scene::Render(Image& outputImage)
 	std::cout << "Render Time: " << time.count() << "ms" << std::endl;
 
 	return true;
+}
+
+bool Scene::CastRay(Ray& castRay, std::shared_ptr<ObjectBase>& closestObj, Vec<double>& closestIntPoint, Vec<double>& closestLocalNormal, Vec<double>& closestLocalColor)
+{
+	Vec<double> intPoint{3};
+	Vec<double> localNormal{3};
+	Vec<double> localColor{3};
+
+	double minDist = 1e6;
+	bool intersectionFound = false;
+
+	//Check For Intersections
+	for (auto currObj : m_objectList)
+	{
+		bool validInt = currObj.get()->Intersects(castRay, intPoint, localNormal, localColor);
+
+		if (validInt)
+		{
+			intersectionFound = true;
+
+			//Compute dist to POI
+			double dist = (intPoint - castRay.m_point1).norm();
+			//Set Values for closest Object (for Object Culling)
+			if (dist < minDist)
+			{
+				minDist = dist;
+				closestObj = currObj;
+				closestIntPoint = intPoint;
+				closestLocalNormal = localNormal;
+				closestLocalColor = localColor;
+			}
+		}
+	}
+	return intersectionFound;
 }

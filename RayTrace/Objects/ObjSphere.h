@@ -1,7 +1,7 @@
 #ifndef OBJSPHERE_H
 #define OBJSPHERE_H
 
-#include "../ObjectBase.h"
+#include "ObjectBase.h"
 #include "../gtfm.h"
 
 class ObjSphere : public ObjectBase

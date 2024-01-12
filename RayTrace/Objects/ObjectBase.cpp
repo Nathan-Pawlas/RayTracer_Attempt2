@@ -26,4 +26,14 @@ bool ObjectBase::FloatEqual(const double f1, const double f2)
 	return fabs(f1 - f2) < EPSILON;
 }
 
+bool ObjectBase::AssignMaterial(const std::shared_ptr<MaterialBase>& objMaterial)
+{
+	if (objMaterial == NULL)
+		return false;
+
+	m_pMaterial = objMaterial;
+	m_hasMaterial = true;
+	return true;
+}
+
 

@@ -7,7 +7,7 @@
 #include "Image.h"
 #include "Camera.h"
 #include "Objects/ObjSphere.h"
-#include "Objects/PointLight.h"
+#include "Lights/PointLight.h"
 #include "Objects/ObjPlane.h"
 
 class Scene
@@ -16,6 +16,10 @@ public:
 	Scene();
 
 	bool Render(Image& outputImage);
+
+	bool CastRay(Ray& castRay, std::shared_ptr<ObjectBase>& closestObj, 
+		Vec<double>& closestIntPoint, Vec<double>& closestLocalNormal,
+		Vec<double>& closestLocalColor);
 
 private:
 

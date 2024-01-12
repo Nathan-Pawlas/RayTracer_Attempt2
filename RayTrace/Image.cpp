@@ -128,7 +128,10 @@ void Image::InitTexture()
 
 void Image::ComputeMaxValues()
 {
-	m_maxRed, m_maxBlue, m_maxGreen, m_overallMax = 0.0;
+	m_maxRed = 0.0;
+	m_maxBlue = 0.0;
+	m_maxGreen = 0.0;
+	m_overallMax = 0.0;
 
 	for (int x = 0; x < m_xSize; x++)
 	{

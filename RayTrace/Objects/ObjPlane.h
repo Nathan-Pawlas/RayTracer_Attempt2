@@ -1,7 +1,7 @@
 #ifndef OBJPLANE_H
 #define OBJPLANE_H
 
-#include "../ObjectBase.h"
+#include "ObjectBase.h"
 #include "../gtfm.h"
 
 class ObjPlane : public ObjectBase
