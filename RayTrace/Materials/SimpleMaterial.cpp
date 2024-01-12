@@ -19,12 +19,19 @@ Vec<double> SimpleMaterial::ComputeColor(const std::vector<std::shared_ptr<Objec
 	//Compute Diffuse Color
 	difColor = ComputeDiffuseColor(objList, lightList, currObj, intPoint, localNormal, m_baseColor);
 
+	//Compute Reflection Color
+	if (m_reflectivity > 0.0)
+		refColor = ComputeReflectionColor(objList, lightList, currObj, intPoint, localNormal, camRay);
+
+	//Combine Mat and Ref Color
+	matColor = (refColor * m_reflectivity) + (difColor * (1 - m_reflectivity));
+
 	//Compute Specular Color
 	if (m_shininess > 0.0)
 		spcColor = ComputeSpecular(objList, lightList, intPoint, localNormal, camRay);
 	
 	//Add The Two Colors Into A Final Color
-	matColor = difColor + spcColor;
+	matColor = matColor + spcColor;
 
 	return matColor;
 }

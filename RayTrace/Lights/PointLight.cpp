@@ -16,7 +16,7 @@ bool PointLight::ComputeIllumination(const Vec<double>& intPoint, const Vec<doub
 	//Get Vector From Intersection to Light
 	Vec<double> lightDir = (m_location - intPoint).Normalized();
 
-	Vec<double> startPoint = intPoint;
+	Vec<double> startPoint = intPoint + (lightDir * 0.001);
 
 	//Cast Ray from IntPoint to Light
 	Ray lightRay(startPoint, startPoint + lightDir);
@@ -62,10 +62,5 @@ bool PointLight::ComputeIllumination(const Vec<double>& intPoint, const Vec<doub
 		return false;
 	}
 	return false;
-}
-
-void PointLight::SetColor(const Vec<double> color)
-{
-	m_color = color;
 }
 

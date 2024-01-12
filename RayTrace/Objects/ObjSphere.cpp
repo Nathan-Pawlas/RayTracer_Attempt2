@@ -29,15 +29,15 @@ bool ObjSphere::Intersects(const Ray& castRay, Vec<double>& intPoint, Vec<double
 
 	double c = Vec<double>::dot(bckRay.m_point1, bckRay.m_point1) - 1.0;
 
-	double intTest = (b * b) - 4.0 * c; //Quadratic Discriminant
+	double discriminant = (b * b) - 4.0 * c; //Quadratic Discriminant
 
 	Vec<double> poi; //Point of Intersection
 
-	if (intTest > 0.0)
+	if (discriminant > 0.0)
 	{
 		//completing the Quadratic Formula:
 		//(-b +- sqrt(dircriminant)) / (2.0f * a)
-		double numSQRT = sqrtf((float)intTest);
+		double numSQRT = sqrtf(discriminant);
 		double t1 = (-b + numSQRT) / 2.0;
 		double t2 = (-b - numSQRT) / 2.0;
 		
@@ -47,11 +47,11 @@ bool ObjSphere::Intersects(const Ray& castRay, Vec<double>& intPoint, Vec<double
 		}
 		else
 		{
-			if (t1 < t2)
+			if (t1 < t2) 
 			{
 				poi = bckRay.m_point1 + (vhat * t1);
 			}
-			else
+			else //It's always gonna takes this condition because b is subtracted in t2 and it's not divided by a neg a b/c a is always 1 so it must be that t2 < t1
 			{
 				poi = bckRay.m_point1 + (vhat * t2);
 			}
